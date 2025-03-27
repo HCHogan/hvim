@@ -7,7 +7,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     map('<leader>ld', function() vim.diagnostic.open_float() end, 'Hover diagnostic')
     map('<leader>lr', vim.lsp.buf.rename, 'rename')
-    map('<leader>lf', vim.lsp.buf.format, 'format')
+    map('<leader>lf', function() vim.lsp.buf.format({ async = true }) end, 'format')
+    map('<leader>la', function() vim.lsp.buf.code_action() end, 'format')
 
     map('gd', vim.lsp.buf.definition, 'goto definition')
     map('gD', vim.lsp.buf.declaration, 'goto definition')

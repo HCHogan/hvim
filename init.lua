@@ -244,7 +244,7 @@ require("lazy").setup({
     },
     {
       "saghen/blink.cmp",
-      event = "InsertEnter",
+      event = "VeryLazy",
       version = "*",
       opts = {
         keymap = {
