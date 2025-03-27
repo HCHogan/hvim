@@ -316,5 +316,9 @@ require("lazy").setup({
       }
     },
   },
+  ui = {
+    backdrop = 70,
+    border = "rounded",
+  },
   checker = { enabled = true },
 })
