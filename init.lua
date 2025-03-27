@@ -65,10 +65,10 @@ vim.opt.laststatus = 3
 
 vim.o.fillchars = 'eob: '
 
-vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
-vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
-vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
-vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
+vim.keymap.set('n', '[b', '<Cmd>tabprev<CR>')
+vim.keymap.set('n', ']b', '<Cmd>tabnext<CR>')
+vim.keymap.set('n', '<leader>b', '<Cmd>tabnew<CR>')
+vim.keymap.set('n', '<leader>c', '<Cmd>tabclose<CR>')
 
 vim.keymap.set('v', 'J', '5j')
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>')
@@ -127,7 +127,7 @@ vim.cmd [[inoremap () ()]]
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
   end,
@@ -158,9 +158,6 @@ end
 
 require("lazy").setup({
   spec = {
-    {
-      "tpope/vim-sleuth",
-    },
     {
       "rebelot/kanagawa.nvim",
       config = function()
