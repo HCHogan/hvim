@@ -120,6 +120,7 @@ end)
 
 vim.cmd [[inoremap ( ()<Left>]]
 vim.cmd [[inoremap () ()]]
+vim.cmd [[set cmdheight=0]]
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
