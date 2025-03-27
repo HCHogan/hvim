@@ -1,12 +1,3 @@
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
-
-local lsps = { "clangd", "basedpyright", "luals" }
-
-vim.lsp.config("*", {
-  capabilities = capabilities
-})
-
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
   callback = function(event)
@@ -66,6 +57,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end
 })
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
+
+vim.lsp.config("*", {
+  capabilities = capabilities
+})
+
+local lsps = { "clangd", "basedpyright", "luals" }
 
 for _, lsp in ipairs(lsps) do
   if vim.fn.executable(vim.lsp.config[lsp].cmd[1]) == 1 then
