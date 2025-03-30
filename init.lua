@@ -81,10 +81,9 @@ vim.keymap.set('x', 'k', 'gk')
 
 vim.keymap.set('n', ';', ':')
 
-vim.keymap.set('n', '<M-n>', function() require('snacks').terminal() end, {desc = 'Toggle terminal'})
-vim.keymap.set('t', '<M-n>', function() require('snacks').terminal() end, {desc = 'Toggle terminal'})
-vim.keymap.set('n', '<leader>th', function() require('snacks').terminal() end, {desc = 'Toggle terminal'})
-vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<CR>', {desc = 'Toggle file tree'})
+vim.keymap.set('n', '<M-n>', function() require('snacks').terminal() end, { desc = 'Toggle terminal' })
+vim.keymap.set('t', '<M-n>', function() require('snacks').terminal() end, { desc = 'Toggle terminal' })
+vim.keymap.set('n', '<leader>th', function() require('snacks').terminal() end, { desc = 'Toggle terminal' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -150,15 +149,6 @@ local function has_words_before()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match '%s' == nil
 end
 
-local function get_kind_icon(CTX)
-  local lspkind = require("lspkind")
-  if CTX.item.source_name == "LSP" then
-    local icon = lspkind.symbolic(CTX.kind, { mode = "symbol" })
-    if icon then CTX.kind_icon = icon end
-  end
-  return { text = CTX.kind_icon .. CTX.icon_gap, highlight = CTX.kind_hl }
-end
-
 require("lazy").setup({
   spec = {
     {
@@ -203,6 +193,15 @@ require("lazy").setup({
         picker = {
           enabled = true,
           ui_select = true,
+          sources = {
+            explorer = {
+              layout = {
+                layout = {
+                  width = 30,
+                },
+              },
+            },
+          },
         },
         input = {
           enabled = true,
@@ -240,6 +239,9 @@ require("lazy").setup({
       event = "VeryLazy",
       opts = {
         auto_install = true,
+        highlight = {
+          enable = true,
+        },
       },
     },
     {
