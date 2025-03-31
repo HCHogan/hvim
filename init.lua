@@ -65,10 +65,14 @@ vim.opt.laststatus = 3
 
 vim.o.fillchars = 'eob: '
 
-vim.keymap.set('n', '[b', '<Cmd>tabprev<CR>')
-vim.keymap.set('n', ']b', '<Cmd>tabnext<CR>')
-vim.keymap.set('n', '<leader>b', '<Cmd>tabnew<CR>')
-vim.keymap.set('n', '<leader>c', '<Cmd>tabclose<CR>')
+-- vim.keymap.set('n', '<leader>b', '<Cmd>Buffer<CR>')
+vim.keymap.set('n', '[b', '<Cmd>BufferPrevious<CR>')
+vim.keymap.set('n', ']b', '<Cmd>BufferNext<CR>')
+vim.keymap.set('n', '<leader>c', '<Cmd>BufferClose<CR>')
+vim.keymap.set('n', '<leader>/', 'gcc', { remap = true, desc = "Toggle comment line" })
+vim.keymap.set('v', '<leader>/', 'gc', { remap = true, desc = "Toggle comment" })
+
+
 vim.keymap.set('n', '<leader>q', '<Cmd>qa<CR>')
 vim.keymap.set('n', '<leader>Q', '<Cmd>qa!<CR>')
 
@@ -235,6 +239,22 @@ require("lazy").setup({
       }
     },
     {
+      'romgrk/barbar.nvim',
+      event = 'BufReadPost',
+      init = function()
+        vim.g.barbar_auto_setup = false
+      end,
+      opts = {
+        icons = {
+          filetype = {
+            enabled = false,
+          },
+        },
+        animation = false,
+        insert_at_start = false,
+      },
+    },
+    {
       "nvim-treesitter/nvim-treesitter",
       event = "VeryLazy",
       opts = {
@@ -323,5 +343,4 @@ require("lazy").setup({
     backdrop = 70,
     border = "rounded",
   },
-  checker = { enabled = true },
 })
