@@ -256,7 +256,7 @@ require("lazy").setup({
     },
     {
       "nvim-treesitter/nvim-treesitter",
-      event = "VeryLazy",
+      event = "BufReadPost",
       opts = {
         auto_install = true,
         highlight = {
