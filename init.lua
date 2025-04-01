@@ -286,7 +286,7 @@ require("lazy").setup({
 		},
 		{
 			"saghen/blink.cmp",
-			event = "VeryLazy",
+			event = "BufReadPost",
 			version = "*",
 			opts = {
 				keymap = {
