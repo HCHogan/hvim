@@ -369,12 +369,12 @@ require("lazy").setup({
 			dependencies = {
 				"nvimdev/guard-collection",
 			},
-			event = "VeryLazy",
+			event = "BufReadPost",
 			opts = {},
 			config = function()
 				local ft = require("guard.filetype")
 
-				if vim.fn.executable("hlint") == 1 then
+				if vim.fn.executable("hlint") then
 					ft("haskell"):lint("hlint")
 				end
 
