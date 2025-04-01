@@ -66,9 +66,9 @@ vim.opt.laststatus = 3
 vim.o.fillchars = 'eob: '
 
 -- vim.keymap.set('n', '<leader>b', '<Cmd>Buffer<CR>')
-vim.keymap.set('n', '[b', '<Cmd>BufferPrevious<CR>')
-vim.keymap.set('n', ']b', '<Cmd>BufferNext<CR>')
-vim.keymap.set('n', '<leader>c', '<Cmd>BufferClose<CR>')
+vim.keymap.set('n', '[b', '<Cmd>bprev<CR>')
+vim.keymap.set('n', ']b', '<Cmd>bnext<CR>')
+vim.keymap.set('n', '<leader>c', '<Cmd>q<CR>')
 vim.keymap.set('n', '<leader>/', 'gcc', { remap = true, desc = "Toggle comment line" })
 vim.keymap.set('v', '<leader>/', 'gc', { remap = true, desc = "Toggle comment" })
 
@@ -237,22 +237,6 @@ require("lazy").setup({
         { "<leader>g",        function() require('snacks').lazygit() end,      desc = "Lazygit" },
         { "<leader>e",        function() require('snacks').explorer() end,     desc = "Explorer" },
       }
-    },
-    {
-      'romgrk/barbar.nvim',
-      event = 'BufReadPost',
-      init = function()
-        vim.g.barbar_auto_setup = false
-      end,
-      opts = {
-        icons = {
-          filetype = {
-            enabled = false,
-          },
-        },
-        animation = false,
-        insert_at_start = false,
-      },
     },
     {
       "nvim-treesitter/nvim-treesitter",
