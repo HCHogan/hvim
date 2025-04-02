@@ -1,21 +1,3 @@
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
----@diagnostic disable-next-line: undefined-field
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out,                            "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
@@ -86,13 +68,13 @@ vim.keymap.set("x", "k", "gk")
 vim.keymap.set("n", ";", ":")
 
 vim.keymap.set("n", "<M-n>", function()
-  require("snacks").terminal()
+	require("snacks").terminal()
 end, { desc = "Toggle terminal" })
 vim.keymap.set("t", "<M-n>", function()
-  require("snacks").terminal()
+	require("snacks").terminal()
 end, { desc = "Toggle terminal" })
 vim.keymap.set("n", "<leader>th", function()
-  require("snacks").terminal()
+	require("snacks").terminal()
 end, { desc = "Toggle terminal" })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -113,18 +95,18 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower win
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 vim.keymap.set("n", "<leader>ui", function()
-  local input_avail, input = pcall(vim.fn.input, "Set indent value (>0 expandtab, <=0 noexpandtab): ")
-  if input_avail then
-    local indent = tonumber(input)
-    if not indent or indent == 0 then
-      return
-    end
-    vim.bo.expandtab = (indent > 0) -- local to buffer
-    indent = math.abs(indent)
-    vim.bo.tabstop = indent         -- local to buffer
-    vim.bo.softtabstop = indent     -- local to buffer
-    vim.bo.shiftwidth = indent      -- local to buffer
-  end
+	local input_avail, input = pcall(vim.fn.input, "Set indent value (>0 expandtab, <=0 noexpandtab): ")
+	if input_avail then
+		local indent = tonumber(input)
+		if not indent or indent == 0 then
+			return
+		end
+		vim.bo.expandtab = (indent > 0) -- local to buffer
+		indent = math.abs(indent)
+		vim.bo.tabstop = indent -- local to buffer
+		vim.bo.softtabstop = indent -- local to buffer
+		vim.bo.shiftwidth = indent -- local to buffer
+	end
 end)
 
 vim.cmd([[inoremap ( ()<Left>]])
@@ -143,28 +125,46 @@ vim.cmd([[set cmdheight=0]])
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
 
 -- fix cursor in windows terminal
 vim.api.nvim_create_autocmd("VimLeave", {
-  pattern = "*",
-  callback = function()
-    vim.o.guicursor = ""
-    vim.fn.chansend(vim.v.stderr, "\x1b[ q]")
-  end,
+	pattern = "*",
+	callback = function()
+		vim.o.guicursor = ""
+		vim.fn.chansend(vim.v.stderr, "\x1b[ q]")
+	end,
 })
 
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+---@diagnostic disable-next-line: undefined-field
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out, "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
+	end
+end
+vim.opt.rtp:prepend(lazypath)
+
 require("lazy").setup({
-  spec = {
-    require('plugins')
-  },
-  ui = {
-    backdrop = 70,
-    border = "rounded",
-  },
+	spec = {
+		require("plugins"),
+	},
+	ui = {
+		backdrop = 70,
+		border = "rounded",
+	},
 })
