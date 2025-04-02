@@ -374,15 +374,15 @@ require("lazy").setup({
 			config = function()
 				local ft = require("guard.filetype")
 
-				if vim.fn.executable("hlint") then
+				if vim.fn.executable("hlint") == 1 then
 					ft("haskell"):lint("hlint")
 				end
 
-				if vim.fn.executable("stylua") then
+				if vim.fn.executable("stylua") == 1 then
 					ft("lua"):fmt("stylua")
 				end
 
-				if vim.fn.executable("clang-tidy") then
+				if vim.fn.executable("clang-tidy") == 1 then
 					ft("c"):lint("clang-tidy")
 					ft("cpp"):lint("clang-tidy")
 				end
