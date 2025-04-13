@@ -592,46 +592,64 @@ H.modes = setmetatable({
 })
 -- stylua: ignore end
 
--- Default content ------------------------------------------------------------
---stylua: ignore
 H.default_content_active = function()
   H.use_icons         = H.get_config().use_icons
   local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
   local git           = MiniStatusline.section_git({ trunc_width = 40 })
   local diff          = MiniStatusline.section_diff({ trunc_width = 75 })
   local diagnostics   = MiniStatusline.section_diagnostics({ trunc_width = 75 })
-  local lsp           = MiniStatusline.section_lsp({ trunc_width = 75 })
+  local lsp_sec       = MiniStatusline.section_lsp({ trunc_width = 75 })
   local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
-  local fileinfo      = MiniStatusline.section_fileinfo({ trunc_width = 120 })
-  local location      = MiniStatusline.section_location({ trunc_width = 75 })
-  local search        = MiniStatusline.section_searchcount({ trunc_width = 75 })
+  -- 删除原有的 fileinfo、location、search 等右侧信息
   H.use_icons         = nil
 
-  -- Usage of `MiniStatusline.combine_groups()` ensures highlighting and
-  -- correct padding with spaces between groups (accounts for 'missing'
-  -- sections, etc.)
+  -- 以下构造新的右侧部分内容
+  local right_side    = {}
+
+  -- 1. Code intelligence 部分：检查是否有 LSP 客户端，没有的话用 treesitter 的语言
+  local clients       = vim.lsp.get_clients({ bufnr = 0 })
+  if not vim.tbl_isempty(clients) then
+    local client_names = {}
+    for _, client in ipairs(clients) do
+      table.insert(client_names, client.name)
+    end
+    table.insert(right_side, "[" .. table.concat(client_names, ",") .. "]")
+  else
+    local ok, parser = pcall(vim.treesitter.get_parser)
+    if ok and parser then
+      table.insert(right_side, parser:lang())
+    end
+  end
+
+  -- 2. Guard 格式化状态部分：只有当存在 Guard autocmd 且对应 ft 有 formatter 时显示
+  local ft = vim.bo.ft
+  local ok, au = pcall(vim.api.nvim_get_autocmds, { group = "Guard", event = "BufWritePre", buffer = 0 })
+  if ok and #au > 0 then
+    local has_guard = false
+    local ok_guard, guardft = pcall(require, "guard.filetype")
+    if ok_guard and guardft[ft] and guardft[ft].formatter then
+      has_guard = true
+    end
+    if has_guard then
+      -- 此处我们依赖一个全局变量 is_formatting（你原来在 personal statusline 中定义过）
+      -- 根据 is_formatting 状态决定显示 “”（正在格式化）或 “”
+      local guard_icon = (is_formatting and "") or ""
+      table.insert(right_side, guard_icon)
+    end
+  end
+
+  -- 最终右侧字符串（各部分用空格分隔，也可以根据需要调整分隔符）
+  local right_string = table.concat(right_side, " ")
+
+  -- 用 MiniStatusline.combine_groups 组合所有组：前半部分保持不变，中间用 %< 分隔，右侧替换为我们的 right_string
   return MiniStatusline.combine_groups({
     { hl = mode_hl,                 strings = { mode } },
-    { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics, lsp } },
-    '%<', -- Mark general truncate point
+    { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics, lsp_sec } },
+    '%<', -- 标记截断点
     { hl = 'MiniStatuslineFilename', strings = { filename } },
-    '%=', -- End left alignment
-    { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
-    { hl = mode_hl,                  strings = { search, location } },
+    '%=', -- 结束左侧对齐，右侧部分开始
+    { hl = 'Keyword',                strings = { right_string } },
   })
-end
-
-H.default_content_inactive = function() return '%#MiniStatuslineInactive#%F%=' end
-
--- LSP ------------------------------------------------------------------------
-H.compute_attached_lsp = function(buf_id) return string.rep('+', vim.tbl_count(H.get_buf_lsp_clients(buf_id))) end
-
-H.get_buf_lsp_clients = function(buf_id) return vim.lsp.get_clients({ bufnr = buf_id }) end
--- NOTE: Use `has('nvim-0.xx')` instead of directly checking presence of target
--- function to avoid loading `vim.xxx` modules at `require('mini.statusline')`.
--- This visibly improves startup time.
-if vim.fn.has('nvim-0.10') == 0 then
-  H.get_buf_lsp_clients = function(buf_id) return vim.lsp.buf_get_clients(buf_id) end
 end
 
 -- Diagnostics ----------------------------------------------------------------
