@@ -618,13 +618,10 @@ H.default_content_active = function()
   local diagnostics   = MiniStatusline.section_diagnostics({ trunc_width = 75 })
   local lsp_sec       = MiniStatusline.section_lsp({ trunc_width = 75 })
   local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
-  -- 删除原有的 fileinfo、location、search 等右侧信息
   H.use_icons         = nil
 
-  -- 以下构造新的右侧部分内容
   local right_side    = {}
 
-  -- 1. Code intelligence 部分：检查是否有 LSP 客户端，没有的话用 treesitter 的语言
   local clients       = vim.lsp.get_clients({ bufnr = 0 })
   if not vim.tbl_isempty(clients) then
     local client_names = {}
@@ -639,27 +636,14 @@ H.default_content_active = function()
     end
   end
 
-  -- 2. Guard 格式化状态部分：只有当存在 Guard autocmd 且对应 ft 有 formatter 时显示
   local ft = vim.bo.ft
   local ok, au = pcall(vim.api.nvim_get_autocmds, { group = "Guard", event = "BufWritePre", buffer = 0 })
-  if ok and #au > 0 then
-    local has_guard = false
-    local ok_guard, guardft = pcall(require, "guard.filetype")
-    if ok_guard and guardft[ft] and guardft[ft].formatter then
-      has_guard = true
-    end
-    if has_guard then
-      -- 此处我们依赖一个全局变量 is_formatting（你原来在 personal statusline 中定义过）
-      -- 根据 is_formatting 状态决定显示 “”（正在格式化）或 “”
-      local guard_icon = (is_formatting and "") or ""
-      table.insert(right_side, guard_icon)
-    end
+  if ok and #au ~= 0 and require("guard.filetype")[ft] and require("guard.filetype")[ft].formatter then
+    table.insert(right_side, "")
   end
 
-  -- 最终右侧字符串（各部分用空格分隔，也可以根据需要调整分隔符）
   local right_string = table.concat(right_side, " ")
 
-  -- 用 MiniStatusline.combine_groups 组合所有组：前半部分保持不变，中间用 %< 分隔，右侧替换为我们的 right_string
   return MiniStatusline.combine_groups({
     { hl = mode_hl,                 strings = { mode } },
     { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics, lsp_sec } },

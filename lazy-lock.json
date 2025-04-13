@@ -1,6 +1,6 @@
 {
   "blink.cmp": { "branch": "main", "commit": "cb5e346d9e0efa7a3eee7fd4da0b690c48d2a98e" },
-  "guard-collection": { "branch": "main", "commit": "add3cf39f49c6b92ef1890092bb38d045a8457fa" },
+  "guard-collection": { "branch": "main", "commit": "05354426c607711ad5f29041160383deef2dcd82" },
   "guard.nvim": { "branch": "main", "commit": "f9467cc39d9816ba857dba8e0ea02a1557d194ff" },
   "kanagawa.nvim": { "branch": "master", "commit": "cc3b68b08e6a0cb6e6bf9944932940091e49bb83" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },

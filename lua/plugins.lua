@@ -78,6 +78,9 @@ return {
         enabled = true,
         replace_netrw = true,
       },
+      words = {
+        enabled = true,
+      },
     },
     keys = {
       {
@@ -228,6 +231,10 @@ return {
       if vim.fn.executable("clang-tidy") == 1 then
         ft("c"):lint("clang-tidy")
         ft("cpp"):lint("clang-tidy")
+      end
+
+      if vim.fn.executable("alejandra") == 1 then
+        ft("nix"):fmt("alejandra")
       end
 
       vim.g.guard_config = {
