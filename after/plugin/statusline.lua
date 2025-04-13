@@ -132,15 +132,6 @@ local H = {}
 ---   require('mini.statusline').setup({}) -- replace {} with your config table
 --- <
 MiniStatusline.setup = function(config)
-  -- TODO: Remove after Neovim=0.8 support is dropped
-  if vim.fn.has('nvim-0.9') == 0 then
-    vim.notify(
-      '(mini.statusline) Neovim<0.9 is soft deprecated (module works but not supported).'
-      .. ' It will be deprecated after next "mini.nvim" release (module might not work).'
-      .. ' Please update your Neovim version.'
-    )
-  end
-
   -- Export module
   _G.MiniStatusline = MiniStatusline
 
@@ -592,6 +583,33 @@ H.modes = setmetatable({
 })
 -- stylua: ignore end
 
+-- H.default_content_active = function()
+--   H.use_icons = H.get_config().use_icons
+--   local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+--   local git           = MiniStatusline.section_git({ trunc_width = 40 })
+--   local diff          = MiniStatusline.section_diff({ trunc_width = 75 })
+--   local diagnostics   = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+--   local lsp           = MiniStatusline.section_lsp({ trunc_width = 75 })
+--   local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
+--   local fileinfo      = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+--   local location      = MiniStatusline.section_location({ trunc_width = 75 })
+--   local search        = MiniStatusline.section_searchcount({ trunc_width = 75 })
+--   H.use_icons = nil
+--
+--   -- Usage of `MiniStatusline.combine_groups()` ensures highlighting and
+--   -- correct padding with spaces between groups (accounts for 'missing'
+--   -- sections, etc.)
+--   return MiniStatusline.combine_groups({
+--     { hl = mode_hl,                  strings = { mode } },
+--     { hl = 'MiniStatuslineDevinfo',  strings = { git, diff, diagnostics, lsp } },
+--     '%<', -- Mark general truncate point
+--     { hl = 'MiniStatuslineFilename', strings = { filename } },
+--     '%=', -- End left alignment
+--     { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+--     { hl = mode_hl,                  strings = { search, location } },
+--   })
+-- end
+
 H.default_content_active = function()
   H.use_icons         = H.get_config().use_icons
   local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
@@ -652,6 +670,13 @@ H.default_content_active = function()
   })
 end
 
+H.default_content_inactive = function() return '%#MiniStatuslineInactive#%F%=' end
+
+-- LSP ------------------------------------------------------------------------
+H.compute_attached_lsp = function(buf_id) return string.rep('+', vim.tbl_count(H.get_buf_lsp_clients(buf_id))) end
+
+H.get_buf_lsp_clients = function(buf_id) return vim.lsp.get_clients({ bufnr = buf_id }) end
+
 -- Diagnostics ----------------------------------------------------------------
 H.get_diagnostic_count = function(buf_id) return vim.diagnostic.count(buf_id) end
 if vim.fn.has('nvim-0.10') == 0 then
@@ -665,13 +690,6 @@ if vim.fn.has('nvim-0.10') == 0 then
 end
 
 H.diagnostic_is_disabled = function() return not vim.diagnostic.is_enabled({ bufnr = 0 }) end
-if vim.fn.has('nvim-0.10') == 0 then
-  if vim.fn.has('nvim-0.9') == 1 then
-    H.diagnostic_is_disabled = function() return vim.diagnostic.is_disabled(0) end
-  else
-    H.diagnostic_is_disabled = function() return false end
-  end
-end
 
 -- Utilities ------------------------------------------------------------------
 H.error = function(msg) error('(mini.statusline) ' .. msg, 0) end
