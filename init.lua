@@ -110,17 +110,17 @@ vim.keymap.set("n", "<leader>ui", function()
   end
 end)
 
-vim.cmd([[inoremap ( ()<Left>]])
-vim.cmd([[inoremap () ()]])
-
-vim.cmd([[inoremap ( ()<Left>]])
-vim.cmd([[inoremap () ()]])
-
-vim.cmd("inoremap { {}<Left>")
-vim.cmd("inoremap {} {}")
-
-vim.cmd("inoremap [ []<Left>")
-vim.cmd("inoremap [] []")
+-- vim.cmd([[inoremap ( ()<Left>]])
+-- vim.cmd([[inoremap () ()]])
+--
+-- vim.cmd([[inoremap ( ()<Left>]])
+-- vim.cmd([[inoremap () ()]])
+--
+-- vim.cmd("inoremap { {}<Left>")
+-- vim.cmd("inoremap {} {}")
+--
+-- vim.cmd("inoremap [ []<Left>")
+-- vim.cmd("inoremap [] []")
 
 vim.cmd([[set cmdheight=0]])
 
