@@ -3,8 +3,8 @@
   "guard-collection": { "branch": "main", "commit": "05354426c607711ad5f29041160383deef2dcd82" },
   "guard.nvim": { "branch": "main", "commit": "f9467cc39d9816ba857dba8e0ea02a1557d194ff" },
   "haskell-tools.nvim": { "branch": "master", "commit": "9a9830b5b303f77e57c64db18d15436ec089954e" },
-  "kanagawa.nvim": { "branch": "master", "commit": "cc3b68b08e6a0cb6e6bf9944932940091e49bb83" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
+  "mini.base16": { "branch": "main", "commit": "2eb2d2b889a8c861d1a66ec651bd0edb417d5c7f" },
   "nvim-treesitter": { "branch": "master", "commit": "0e21ee8df6235511c02bab4a5b391d18e165a58d" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" }
 }

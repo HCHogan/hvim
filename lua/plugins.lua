@@ -5,16 +5,6 @@ end
 
 return {
   {
-    "rebelot/kanagawa.nvim",
-    config = function()
-      require("kanagawa").setup({
-        compile = true,
-        theme = "dragon",
-      })
-      vim.cmd("colorscheme kanagawa-dragon")
-    end,
-  },
-  {
     "folke/snacks.nvim",
     lazy = false,
     ---@type snacks.Config
@@ -248,5 +238,36 @@ return {
         lsp_as_default_formatter = true,
       }
     end,
+  },
+  -- {
+  --   "echasnovski/mini.hues",
+  --   opts = {
+  --     background = "#161821",
+  --     foreground = "#C6C8D1",
+  --   }
+  -- }
+  {
+    "echasnovski/mini.base16",
+    opts = {
+      palette = {
+        base00 = "#161821", -- Background
+        base01 = "#1e2132", -- LineNr (bg)
+        base02 = "#444b71", -- LineNr (fg)
+        base03 = "#818596", -- StatusLine (bg)
+        base04 = "#aeb2bf", -- mid-gray (推测)
+        base05 = "#c6c8d1", -- Foreground
+        base06 = "#e0e2e9", -- light gray (高亮用)
+        base07 = "#f5f7fa", -- white-ish (optional bright fg)
+
+        base08 = "#9ba4cf", -- “red” (soft indigo) - 弱化红色
+        base09 = "#7f85a3", -- “orange” (灰蓝)
+        base0A = "#9ca2b8", -- “yellow” (偏灰)
+        base0B = "#a0b0c0", -- “green” 替换为低饱和蓝绿
+        base0C = "#95a4b8", -- “cyan”
+        base0D = "#84a0c6", -- “blue”
+        base0E = "#a093c7", -- “magenta”
+        base0F = "#b0a6c0", -- “brown” or fallback
+      },
+    }
   },
 }
