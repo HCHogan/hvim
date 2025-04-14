@@ -211,6 +211,11 @@ return {
     },
   },
   {
+    'mrcjkb/haskell-tools.nvim',
+    version = '^5', -- Recommended
+    lazy = false,   -- This plugin is already lazy
+  },
+  {
     "nvimdev/guard.nvim",
     dependencies = {
       "nvimdev/guard-collection",
@@ -238,7 +243,8 @@ return {
       end
 
       vim.g.guard_config = {
-        fmt_on_save = "false",
+        fmt_on_save = false,
+        save_on_fmt = false,
         lsp_as_default_formatter = true,
       }
     end,
