@@ -249,24 +249,30 @@ return {
   {
     "echasnovski/mini.base16",
     opts = {
+      use_cterm = true,
       palette = {
-        base00 = "#161821", -- Background
-        base01 = "#1e2132", -- LineNr (bg)
+        base00 = "#14161B", -- Background modded
+        base01 = "#202227", -- LineNr (bg)
         base02 = "#444b71", -- LineNr (fg)
         base03 = "#818596", -- StatusLine (bg)
-        base04 = "#aeb2bf", -- mid-gray (推测)
-        base05 = "#c6c8d1", -- Foreground
-        base06 = "#e0e2e9", -- light gray (高亮用)
-        base07 = "#f5f7fa", -- white-ish (optional bright fg)
 
-        base08 = "#9ba4cf", -- “red” (soft indigo) - 弱化红色
-        base09 = "#7f85a3", -- “orange” (灰蓝)
-        base0A = "#9ca2b8", -- “yellow” (偏灰)
-        base0B = "#a0b0c0", -- “green” 替换为低饱和蓝绿
-        base0C = "#95a4b8", -- “cyan”
-        base0D = "#84a0c6", -- “blue”
-        base0E = "#a093c7", -- “magenta”
-        base0F = "#b0a6c0", -- “brown” or fallback
+        base04 = "#E0E2EA", -- Foreground modded
+        base05 = "#E0E2EA", -- Normal text (same as foreground) modded
+
+        base06 = "#d2d4de", -- Light foreground (optional)
+        base07 = "#ffffff", -- White (optional highlight)
+
+        -- Adjusted representative colors
+        base08 = "#8eaad0", -- soft blue (替代原本红色)
+
+        base09 = "#89B8C2", -- soft purple (替代橙色)
+        base0A = "#b4be82", -- yellow-green
+        base0B = "#B3F6C0", -- cyan modded
+        base0C = "#95c4ce", -- lighter cyan variant
+
+        base0D = "#89B8C2", -- purple
+        base0E = "#A6DBFF", -- soft blue
+        base0F = "#C4C6CD", -- fallback dark accent
       },
     }
   },
