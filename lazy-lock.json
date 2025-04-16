@@ -1,10 +1,10 @@
 {
   "blink.cmp": { "branch": "main", "commit": "cb5e346d9e0efa7a3eee7fd4da0b690c48d2a98e" },
-  "guard-collection": { "branch": "main", "commit": "05354426c607711ad5f29041160383deef2dcd82" },
+  "catppuccin": { "branch": "main", "commit": "5b5e3aef9ad7af84f463d17b5479f06b87d5c429" },
+  "guard-collection": { "branch": "main", "commit": "f4fb957960aa3de67092405d24768fcddfa63203" },
   "guard.nvim": { "branch": "main", "commit": "f9467cc39d9816ba857dba8e0ea02a1557d194ff" },
   "haskell-tools.nvim": { "branch": "master", "commit": "9a9830b5b303f77e57c64db18d15436ec089954e" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
-  "mini.base16": { "branch": "main", "commit": "2eb2d2b889a8c861d1a66ec651bd0edb417d5c7f" },
-  "nvim-treesitter": { "branch": "master", "commit": "0e21ee8df6235511c02bab4a5b391d18e165a58d" },
+  "nvim-treesitter": { "branch": "master", "commit": "684eeac91ed8e297685a97ef70031d19ac1de25a" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" }
 }

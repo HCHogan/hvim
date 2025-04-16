@@ -239,6 +239,23 @@ return {
       }
     end,
   },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    config = function()
+      require('catppuccin').setup {
+        term_colors = true,
+        integrations = {
+          treesitter = true,
+          snacks = {
+            enabled = true,
+          },
+          blink_cmp = true,
+        },
+      }
+      vim.cmd "colorscheme catppuccin"
+    end
+  }
   -- {
   --   "echasnovski/mini.hues",
   --   opts = {
@@ -246,34 +263,34 @@ return {
   --     foreground = "#C6C8D1",
   --   }
   -- }
-  {
-    "echasnovski/mini.base16",
-    opts = {
-      use_cterm = true,
-      palette = {
-        base00 = "#14161B", -- Background modded
-        base01 = "#202227", -- LineNr (bg)
-        base02 = "#444b71", -- LineNr (fg)
-        base03 = "#818596", -- StatusLine (bg)
-
-        base04 = "#E0E2EA", -- Foreground modded
-        base05 = "#E0E2EA", -- Normal text (same as foreground) modded
-
-        base06 = "#d2d4de", -- Light foreground (optional)
-        base07 = "#ffffff", -- White (optional highlight)
-
-        -- Adjusted representative colors
-        base08 = "#8eaad0", -- soft blue (替代原本红色)
-
-        base09 = "#89B8C2", -- soft purple (替代橙色)
-        base0A = "#b4be82", -- yellow-green
-        base0B = "#B3F6C0", -- cyan modded
-        base0C = "#95c4ce", -- lighter cyan variant
-
-        base0D = "#89B8C2", -- purple
-        base0E = "#A6DBFF", -- soft blue
-        base0F = "#C4C6CD", -- fallback dark accent
-      },
-    }
-  },
+  -- {
+  --   "echasnovski/mini.base16",
+  --   opts = {
+  --     use_cterm = true,
+  --     palette = {
+  --       base00 = "#14161B", -- Background modded
+  --       base01 = "#202227", -- LineNr (bg)
+  --       base02 = "#444b71", -- LineNr (fg)
+  --       base03 = "#818596", -- StatusLine (bg)
+  --
+  --       base04 = "#E0E2EA", -- Foreground modded
+  --       base05 = "#E0E2EA", -- Normal text (same as foreground) modded
+  --
+  --       base06 = "#d2d4de", -- Light foreground (optional)
+  --       base07 = "#ffffff", -- White (optional highlight)
+  --
+  --       -- Adjusted representative colors
+  --       base08 = "#8eaad0", -- soft blue (替代原本红色)
+  --
+  --       base09 = "#89B8C2", -- soft purple (替代橙色)
+  --       base0A = "#b4be82", -- yellow-green
+  --       base0B = "#B3F6C0", -- cyan modded
+  --       base0C = "#95c4ce", -- lighter cyan variant
+  --
+  --       base0D = "#89B8C2", -- purple
+  --       base0E = "#A6DBFF", -- soft blue
+  --       base0F = "#C4C6CD", -- fallback dark accent
+  --     },
+  --   }
+  -- },
 }
