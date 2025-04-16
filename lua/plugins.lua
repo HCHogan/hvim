@@ -251,18 +251,14 @@ return {
             enabled = true,
           },
           blink_cmp = true,
+          mini = {
+            enabled = true,
+          }
         },
       }
       vim.cmd "colorscheme catppuccin"
     end
   }
-  -- {
-  --   "echasnovski/mini.hues",
-  --   opts = {
-  --     background = "#161821",
-  --     foreground = "#C6C8D1",
-  --   }
-  -- }
   -- {
   --   "echasnovski/mini.base16",
   --   opts = {
