@@ -297,6 +297,7 @@ return {
     -- Optional; default configuration will be used if setup isn't called.
     config = function()
       require("everforest").setup({
+        background = "hard",
         -- Your config here
       })
       vim.cmd("colorscheme everforest")
