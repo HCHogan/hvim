@@ -290,17 +290,14 @@ return {
   --   }
   -- },
   {
-    "neanias/everforest-nvim",
-    version = false,
+    'jesseleite/nvim-noirbuddy',
+    dependencies = {
+      { 'tjdevries/colorbuddy.nvim' }
+    },
     lazy = false,
-    priority = 1000, -- make sure to load this before all the other start plugins
-    -- Optional; default configuration will be used if setup isn't called.
-    config = function()
-      require("everforest").setup({
-        background = "hard",
-        -- Your config here
-      })
-      vim.cmd("colorscheme everforest")
-    end,
-  }
+    priority = 1000,
+    opts = {
+      -- All of your `setup(opts)` will go here
+    },
+  },
 }
