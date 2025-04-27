@@ -240,26 +240,6 @@ return {
     end,
   },
   -- {
-  --   "catppuccin/nvim",
-  --   name = "catppuccin",
-  --   config = function()
-  --     require('catppuccin').setup {
-  --       term_colors = true,
-  --       integrations = {
-  --         treesitter = true,
-  --         snacks = {
-  --           enabled = true,
-  --         },
-  --         blink_cmp = true,
-  --         mini = {
-  --           enabled = true,
-  --         }
-  --       },
-  --     }
-  --     vim.cmd "colorscheme catppuccin"
-  --   end
-  -- }
-  -- {
   --   "echasnovski/mini.base16",
   --   opts = {
   --     use_cterm = true,
@@ -297,7 +277,7 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
-      preset = 'slate',
+      preset = 'northern-lights',
     },
   },
 }
