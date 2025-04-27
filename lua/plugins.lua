@@ -246,14 +246,25 @@ return {
     },
     lazy = false,
     priority = 1000,
-    opts = {
-      styles = {
-        italic = true,
-        bold = true,
-        underline = false,
-        undercurl = true,
-      },
-      preset = 'northern-lights',
-    },
+    config = function()
+      require('noirbuddy').setup {
+        styles = {
+          italic = true,
+          bold = true,
+          underline = false,
+          undercurl = true,
+        },
+        preset = 'northern-lights',
+      }
+      local colorbuddy = require('colorbuddy')
+      local Color = colorbuddy.Color
+      local colors = colorbuddy.colors
+      local Group = colorbuddy.Group
+      local groups = colorbuddy.groups
+      local styles = colorbuddy.styles
+      Group.new('MiniTablineCurrent', colors.background, colors.primary)
+      Group.new('MiniTablineModifiedCurrent', colors.background, colors.primary)
+      Group.new('@comment', _, _, styles.italic)
+    end
   },
 }
