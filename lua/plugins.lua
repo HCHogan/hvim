@@ -252,7 +252,7 @@ return {
           italic = true,
           bold = true,
           underline = false,
-          undercurl = true,
+          undercurl = false,
         },
         preset = 'northern-lights',
       }
@@ -264,8 +264,8 @@ return {
       local styles = colorbuddy.styles
       Group.new('MiniTablineCurrent', colors.background, colors.primary)
       Group.new('MiniTablineModifiedCurrent', colors.background, colors.primary)
+      Group.new('@keyword', colors.noir_2, _, styles.bold)
       Group.new('@comment', _, _, styles.italic)
-      Group.new('@keyword', "#d5d5d5", _, styles.bold)
     end
   },
 }
