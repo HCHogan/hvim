@@ -267,7 +267,7 @@ return {
 
       Group.new('MiniTablineCurrent', colors.background, colors.primary)
       Group.new('MiniTablineModifiedCurrent', colors.background, colors.primary)
-      Group.new('@type', colors.lightgreen, colors.background)
+      Group.new('@type', colors.primary, colors.background)
       Group.new('@keyword', colors.noir_2, _, styles.bold)
       Group.new('@comment', _, _, styles.italic)
     end
