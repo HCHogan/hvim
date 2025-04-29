@@ -241,6 +241,7 @@ return {
   },
   {
     'jesseleite/nvim-noirbuddy',
+    enabled = true,
     dependencies = {
       { 'tjdevries/colorbuddy.nvim' }
     },
@@ -262,8 +263,11 @@ return {
       local Group = colorbuddy.Group
       local groups = colorbuddy.groups
       local styles = colorbuddy.styles
+      Color.new('lightgreen', '#d7eecc')
+
       Group.new('MiniTablineCurrent', colors.background, colors.primary)
       Group.new('MiniTablineModifiedCurrent', colors.background, colors.primary)
+      Group.new('@type', colors.lightgreen, colors.background)
       Group.new('@keyword', colors.noir_2, _, styles.bold)
       Group.new('@comment', _, _, styles.italic)
     end
