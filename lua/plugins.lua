@@ -270,6 +270,11 @@ return {
       Group.new('@type', colors.primary, colors.background)
       Group.new('@keyword', colors.noir_2, _, styles.bold)
       Group.new('@comment', _, _, styles.italic)
+      Group.new('LspCodeLens', colors.noir_7, _)
+      Group.new('WinSeparator', colors.noir_7, colors.background)
+      Group.new('SnacksPickerInputBorder', colors.primary, _)
+      Group.new('SnacksPickerBoxTitle', colors.primary, _)
+      Group.new('SnacksPickerDir', colors.noir_7, _)
     end
   },
 }

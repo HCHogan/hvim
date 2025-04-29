@@ -48,7 +48,7 @@ vim.opt.laststatus = 3
 
 vim.o.fillchars = "eob: "
 
--- vim.keymap.set('n', '<leader>b', '<Cmd>Buffer<CR>')
+vim.keymap.set('n', '<Esc>', '<Cmd>nohlsearch<CR>')
 vim.keymap.set("n", "[b", "<Cmd>bprev<CR>")
 vim.keymap.set("n", "]b", "<Cmd>bnext<CR>")
 vim.keymap.set("n", "<leader>c", function() require('snacks').bufdelete() end)
