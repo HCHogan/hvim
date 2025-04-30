@@ -650,7 +650,7 @@ H.default_content_active = function()
     '%<', -- 标记截断点
     { hl = 'MiniStatuslineFilename', strings = { filename } },
     '%=', -- 结束左侧对齐，右侧部分开始
-    { hl = 'Keyword',                strings = { right_string } },
+    { hl = 'MiniStatuslineLspInfo',                strings = { right_string } },
   })
 end
 
