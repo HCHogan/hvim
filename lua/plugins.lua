@@ -283,6 +283,7 @@ return {
       Group.new('SnacksInputBorder', colors.noir_7, _)
       Group.new('SnacksInputTitle', colors.primary, _)
       Group.new('SnacksInputIcon', colors.primary, _)
+      Group.new('SnacksPickerMatch', colors.noir_1, _, styles.bold)
     end
   },
 }
