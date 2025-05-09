@@ -206,19 +206,6 @@ return {
     'mrcjkb/haskell-tools.nvim',
     version = '^5', -- Recommended
     lazy = false,   -- This plugin is already lazy
-    init = function()
-      vim.g.haskell_tools = {
-        hls = {
-          settings = {
-            plugin = {
-              ['cabal-fmt'] = {
-                globalOn = false,
-              }
-            }
-          }
-        }
-      }
-    end
   },
   {
 
@@ -297,7 +284,7 @@ return {
       local ft = require("guard.filetype")
 
       if vim.fn.executable("hlint") == 1 then
-        ft("haskell"):lint("hlint")
+        ft("haskell"):lint("hlint"):fmt("ormolu")
       end
 
       if vim.fn.executable("stylua") == 1 then
