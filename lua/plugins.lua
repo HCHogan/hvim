@@ -206,6 +206,19 @@ return {
     'mrcjkb/haskell-tools.nvim',
     version = '^5', -- Recommended
     lazy = false,   -- This plugin is already lazy
+    init = function()
+      vim.g.haskell_tools = {
+        hls = {
+          settings = {
+            plugin = {
+              ['cabal-fmt'] = {
+                globalOn = false,
+              }
+            }
+          }
+        }
+      }
+    end
   },
   {
 
