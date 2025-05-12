@@ -2181,6 +2181,4 @@ end
 -- Initialize cache right away to allow using `get()` without `setup()`
 H.init_cache(MiniIcons.config)
 
--- return MiniIcons
-
-MiniIcons.setup()
+return MiniIcons
