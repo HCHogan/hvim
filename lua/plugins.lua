@@ -208,6 +208,21 @@ return {
     lazy = false,   -- This plugin is already lazy
   },
   {
+    'moonbit-community/moonbit.nvim',
+    ft = { 'moonbit' },
+    opts = {
+      -- optionally disable the treesitter integration
+      treesitter = {
+        enabled = true,
+        -- Set false to disable automatic installation and updating of parsers.
+        auto_install = true
+      },
+      -- configure the language server integration
+      -- set `lsp = false` to disable the language server integration
+      lsp = false
+    },
+  },
+  {
 
     'lewis6991/gitsigns.nvim',
     event = 'VeryLazy',
