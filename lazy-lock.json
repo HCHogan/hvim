@@ -1,12 +1,11 @@
 {
-  "blink.cmp": { "branch": "main", "commit": "022521a8910a5543b0251b21c9e1a1e989745796" },
-  "gitsigns.nvim": { "branch": "main", "commit": "731b581428ec6c1ccb451b95190ebbc6d7006db7" },
+  "blink.cmp": { "branch": "main", "commit": "bae4bae0eedd1fa55f34b685862e94a222d5c6f8" },
+  "gitsigns.nvim": { "branch": "main", "commit": "b01433169be710d6c69f7b4ee264d9670698b831" },
   "guard-collection": { "branch": "main", "commit": "7e87ae9c3758221ec6dbd24bb44ee8ff400f3940" },
   "guard.nvim": { "branch": "main", "commit": "9a9f00a6f70e5da2ea8379f203fcd45d8a7250cc" },
-  "haskell-tools.nvim": { "branch": "master", "commit": "f626546c5d768f1dd10d9ee23775b93d9af71a5b" },
+  "haskell-tools.nvim": { "branch": "master", "commit": "2e4d5cf328939e6176df9925209e5d2e289f3187" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
-  "mellow.nvim": { "branch": "main", "commit": "c5c289b3254b5648ca25a691558559f260d99b84" },
-  "moonbit.nvim": { "branch": "main", "commit": "e8bf5ee12fc1834be273aa5f27906a6ca4a81d2e" },
+  "moonbit.nvim": { "branch": "main", "commit": "f49215a47f8c9928894358b204e4813e127ba08e" },
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" }
 }
