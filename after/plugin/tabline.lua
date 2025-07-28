@@ -241,7 +241,7 @@ H.create_default_hl = function()
     vim.api.nvim_set_hl(0, name, data)
   end
 
-  set_default_hl('MiniTablineCurrent', { link = 'TabLineSel' })
+  set_default_hl('MiniTablineCurrent', { link = 'StatusLine' })
   set_default_hl('MiniTablineVisible', { link = 'TabLineSel' })
   set_default_hl('MiniTablineHidden', { link = 'TabLine' })
 

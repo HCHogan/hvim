@@ -65,6 +65,13 @@ return {
         desc = "Smart find files",
       },
       {
+        "<leader>fr",
+        function()
+          require("snacks").picker.recent()
+        end,
+        desc = "recent files",
+      },
+      {
         "<leader>ff",
         function()
           require("snacks").picker.files()
@@ -278,7 +285,11 @@ return {
       local ft = require("guard.filetype")
 
       if vim.fn.executable("hlint") == 1 then
-        ft("haskell"):lint("hlint"):fmt("ormolu")
+        ft("haskell"):lint("hlint")
+      end
+
+      if vim.fn.executable("ormolu") == 1 then
+        ft('haskell'):fmt("ormolu")
       end
 
       if vim.fn.executable("stylua") == 1 then
