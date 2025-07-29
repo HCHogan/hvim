@@ -5,6 +5,7 @@
   "guard.nvim": { "branch": "main", "commit": "9a9f00a6f70e5da2ea8379f203fcd45d8a7250cc" },
   "haskell-tools.nvim": { "branch": "master", "commit": "2e4d5cf328939e6176df9925209e5d2e289f3187" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
+  "mellow.nvim": { "branch": "main", "commit": "3894d0d3238a8941f242b88baf3d1cbdb447282e" },
   "moonbit.nvim": { "branch": "main", "commit": "f49215a47f8c9928894358b204e4813e127ba08e" },
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" }

@@ -102,14 +102,31 @@ return {
     },
   },
   {
-    "nvim-treesitter/nvim-treesitter",
-    event = "BufReadPost",
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    event = "VeryLazy",
     opts = {
       auto_install = true,
       highlight = {
         enable = true,
       },
+      indent = {
+        enable = true,
+      },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = "<enter>",
+          node_incremental = "<enter>",
+          scope_incremental = false,
+          node_decremental = "<bs>",
+        }
+      },
     },
+    config = function(_, opts)
+      ---@diagnostic disable-next-line: missing-fields
+      require('nvim-treesitter.configs').setup(opts)
+    end,
   },
   {
     "saghen/blink.cmp",
@@ -313,14 +330,14 @@ return {
     end,
   },
   -- Lazy
-  -- {
-  --   "mellow-theme/mellow.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     vim.cmd([[colorscheme mellow]])
-  --   end,
-  -- },
+  {
+    "mellow-theme/mellow.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd([[colorscheme mellow]])
+    end,
+  },
   -- {
   --   'jesseleite/nvim-noirbuddy',
   --   enabled = true,
