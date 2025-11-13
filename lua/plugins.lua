@@ -214,16 +214,29 @@ return {
     lazy = false,   -- This plugin is already lazy
   },
   {
-    "moonbit-community/moonbit.nvim",
-    ft = { "moonbit" },
-    opts = {
-      -- optionally disable the treesitter integration
-      treesitter = {
-        enabled = true,
-        -- Set false to disable automatic installation and updating of parsers.
-        auto_install = true,
-      },
+    'Julian/lean.nvim',
+    event = { 'BufReadPre *.lean', 'BufNewFile *.lean' },
+
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'Saghen/blink.cmp',
+      -- 'neovim/nvim-lspconfig',
+
+      -- optional dependencies:
+
+      -- 'nvim-telescope/telescope.nvim', -- for 2 Lean-specific pickers
+      -- 'andymass/vim-matchup',          -- for enhanced % motion behavior
+      -- 'andrewradev/switch.vim',        -- for switch support
+      -- 'tomtom/tcomment_vim',           -- for commenting
     },
+
+    ---@type lean.Config
+    opts = { -- see below for full configuration options
+      mappings = true,
+      infoview = {
+        orientation = 'vertical'
+      }
+    }
   },
   {
 
