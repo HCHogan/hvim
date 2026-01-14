@@ -344,11 +344,17 @@ return {
   },
   -- Lazy
   {
-    "AlexvZyl/nordic.nvim",
+    "evergarden/nvim",
     lazy = false,
     priority = 1000,
-    config = function()
-      require('nordic').load()
-    end
+    opts = {
+      theme = {
+        variant = 'winter', -- 'winter'|'fall'|'spring'|'summer'
+        accent = 'green',
+      },
+      editor = {
+        transparent_background = false,
+      },
+    }
   },
 }
