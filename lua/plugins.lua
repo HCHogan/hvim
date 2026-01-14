@@ -344,58 +344,11 @@ return {
   },
   -- Lazy
   {
-    "mellow-theme/mellow.nvim",
+    "rebelot/kanagawa.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd([[colorscheme mellow]])
+      vim.cmd([[colorscheme kanagawa]])
     end,
   },
-  -- {
-  --   'jesseleite/nvim-noirbuddy',
-  --   enabled = true,
-  --   dependencies = {
-  --     { 'tjdevries/colorbuddy.nvim' }
-  --   },
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     require('noirbuddy').setup {
-  --       styles = {
-  --         italic = true,
-  --         bold = true,
-  --         underline = false,
-  --         undercurl = false,
-  --       },
-  --       preset = 'northern-lights',
-  --     }
-  --     local colorbuddy = require('colorbuddy')
-  --     local Color = colorbuddy.Color
-  --     local colors = colorbuddy.colors
-  --     local Group = colorbuddy.Group
-  --     local groups = colorbuddy.groups
-  --     local styles = colorbuddy.styles
-  --     Color.new('lightgreen', '#d7eecc')
-  --
-  --     Group.new('MiniTablineCurrent', colors.background, colors.primary)
-  --     Group.new('MiniTablineModifiedCurrent', colors.background, colors.primary)
-  --
-  --     Group.new('@type', colors.primary, colors.background)
-  --     Group.new('@keyword', colors.noir_2, _, styles.bold)
-  --     Group.new('@comment', _, _, styles.italic)
-  --     Group.new('LspCodeLens', colors.noir_7, _)
-  --
-  --     Group.new('WinSeparator', colors.noir_7, colors.background)
-  --
-  --     Group.new('BlinkCmpDocSeparator', colors.primary, _)
-  --
-  --     Group.new('SnacksPickerInputBorder', colors.primary, _)
-  --     Group.new('SnacksPickerBoxTitle', colors.primary, _)
-  --     Group.new('SnacksPickerDir', colors.noir_7, _)
-  --     Group.new('SnacksInputBorder', colors.noir_7, _)
-  --     Group.new('SnacksInputTitle', colors.primary, _)
-  --     Group.new('SnacksInputIcon', colors.primary, _)
-  --     Group.new('SnacksPickerMatch', colors.noir_1, _, styles.bold)
-  --   end
-  -- },
 }
