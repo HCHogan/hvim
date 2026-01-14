@@ -344,7 +344,8 @@ return {
   },
   -- Lazy
   {
-    "evergarden/nvim",
+    'everviolet/nvim',
+    name = 'evergarden',
     lazy = false,
     priority = 1000,
     opts = {
