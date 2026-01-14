@@ -348,14 +348,17 @@ return {
     name = 'evergarden',
     lazy = false,
     priority = 1000,
-    opts = {
-      theme = {
-        variant = 'winter', -- 'winter'|'fall'|'spring'|'summer'
-        accent = 'green',
-      },
-      editor = {
-        transparent_background = false,
-      },
-    }
+    config = function()
+      require('evergarden').setup({
+        theme = {
+          variant = 'winter', -- 'winter'|'fall'|'spring'|'summer'
+          accent = 'green',
+        },
+        editor = {
+          transparent_background = false,
+        },
+      })
+      vim.cmd([[colorscheme evergarden]])
+    end
   },
 }
