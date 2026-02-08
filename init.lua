@@ -49,6 +49,10 @@ vim.opt.laststatus = 3
 
 vim.o.fillchars = "eob: "
 
+vim.opt.foldenable = true
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+
 vim.keymap.set('n', '<Esc>', '<Cmd>nohlsearch<CR>')
 vim.keymap.set("n", "[b", "<Cmd>bprev<CR>")
 vim.keymap.set("n", "]b", "<Cmd>bnext<CR>")

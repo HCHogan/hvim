@@ -240,7 +240,8 @@ return {
                 extraEnv = { CARGO_PROFILE_RUST_ANALYZER_INHERITS = "dev" },
                 extraArgs = { "--profile", "rust-analyzer" },
               },
-              checkOnSave = {
+              checkOnSave = true,
+              check = {
                 command = "clippy",
                 allTargets = false,
                 extraArgs = { "--no-deps" },
