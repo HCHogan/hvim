@@ -46,7 +46,7 @@ vim.lsp.config("*", {
   capabilities = capabilities,
 })
 
-local lsps = { "clangd", "basedpyright", "luals", "rust_analyzer", "nil", "neocmake", "bashls" }
+local lsps = { "clangd", "basedpyright", "luals", "nil", "neocmake", "bashls" }
 
 for _, lsp in ipairs(lsps) do
   if vim.fn.executable(vim.lsp.config[lsp].cmd[1]) == 1 then

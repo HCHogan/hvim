@@ -103,30 +103,43 @@ return {
   },
   {
     'nvim-treesitter/nvim-treesitter',
-    branch = 'master',
+    branch = 'main',
+    lazy = false,
     build = ':TSUpdate',
-    event = "VeryLazy",
-    opts = {
-      auto_install = true,
-      highlight = {
-        enable = true,
-      },
-      indent = {
-        enable = true,
-      },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<enter>",
-          node_incremental = "<enter>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
-        }
-      },
-    },
-    config = function(_, opts)
-      ---@diagnostic disable-next-line: missing-fields
-      require('nvim-treesitter.configs').setup(opts)
+    config = function()
+      local TS = require("nvim-treesitter")
+      TS.setup({})
+
+      -- 你想要的“auto_install”效果：进 buffer 就装对应 parser（已安装则 no-op）
+      local group = vim.api.nvim_create_augroup("my_treesitter_main", { clear = true })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = group,
+        callback = function(ev)
+          local ft = ev.match
+          local lang = vim.treesitter.language.get_lang(ft) or ft
+
+          -- 没有对应 parser 的 buffer（比如某些特殊插件 buffer）会失败；失败就直接跳过
+          if not vim.treesitter.language.add(lang) then
+            return
+          end
+
+          -- 尝试安装（已安装会是 no-op）
+          TS.install({ lang })
+
+          -- 启用高亮（main 分支需要你自己 start）
+          pcall(vim.treesitter.start, ev.buf, lang)
+
+          -- 启用 folds（用 Neovim 内置 foldexpr）
+          vim.api.nvim_buf_call(ev.buf, function()
+            vim.opt_local.foldmethod = "expr"
+            vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+          end)
+
+          -- 启用 indent（main 分支：通过 indentexpr；官方标注为 experimental）
+          vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
     end,
   },
   {
@@ -208,6 +221,62 @@ return {
 
       fuzzy = { implementation = "prefer_rust_with_warning" },
     },
+  },
+  {
+    'mrcjkb/rustaceanvim',
+    -- version = '^5', -- Recommended
+    lazy = false, -- This plugin is already lazy
+    config = function()
+      local cfg = {
+        -- Plugin configuration
+        tools = {
+        },
+        -- LSP configuration
+        server = {
+          default_settings = {
+            -- rust-analyzer language server configuration
+            ['rust-analyzer'] = {
+              cargo = {
+                extraEnv = { CARGO_PROFILE_RUST_ANALYZER_INHERITS = "dev" },
+                extraArgs = { "--profile", "rust-analyzer" },
+              },
+              checkOnSave = {
+                command = "clippy",
+                allTargets = false,
+                extraArgs = { "--no-deps" },
+                allFeatures = true,
+              },
+              -- inlayHints = {
+              -- reborrowHints = {
+              --   enable = "mutable",
+              -- },
+              -- lifetimeElisionHints = {
+              --   enable = "skip_trivial",
+              -- },
+              -- closureReturnTypeHints = {
+              --   enable = "with_block",
+              -- },
+              -- implicitDrops = {
+              --   enable = "always",
+              -- },
+              -- discriminantHints = {
+              --   enable = "always",
+              -- },
+              -- expressionAdjustmentHints = {
+              --   enable = "always",
+              --   hideOutsideUnsafe = false,
+              --   mode = "prefix",
+              -- },
+              -- },
+            },
+          },
+        },
+        -- DAP configuration
+        dap = {
+        },
+      }
+      vim.g.rustaceanvim = cfg
+    end,
   },
   {
     "mrcjkb/haskell-tools.nvim",
