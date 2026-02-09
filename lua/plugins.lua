@@ -102,6 +102,15 @@ return {
     },
   },
   {
+    'nvim-mini/mini.nvim',
+    version = false,
+    config = function()
+      require('mini.icons').setup()
+      require('mini.statusline').setup()
+      require('mini.tabline').setup()
+    end
+  },
+  {
     'nvim-treesitter/nvim-treesitter',
     branch = 'main',
     lazy = false,
@@ -413,7 +422,6 @@ return {
       }
     end,
   },
-  -- Lazy
   {
     'everviolet/nvim',
     name = 'evergarden',
