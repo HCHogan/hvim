@@ -389,15 +389,9 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'Saghen/blink.cmp',
-
-      -- 'nvim-telescope/telescope.nvim', -- for 2 Lean-specific pickers
-      -- 'andymass/vim-matchup',          -- for enhanced % motion behavior
-      -- 'andrewradev/switch.vim',        -- for switch support
-      -- 'tomtom/tcomment_vim',           -- for commenting
     },
 
-    ---@type lean.Config
-    opts = { -- see below for full configuration options
+    opts = {
       mappings = true,
       infoview = {
         orientation = 'vertical'
@@ -530,23 +524,24 @@ return {
     name = 'evergarden',
     lazy = false,
     priority = 1000,
-    config = function()
-      require('evergarden').setup({
-        theme = {
-          variant = 'winter', -- 'winter'|'fall'|'spring'|'summer'
-          accent = 'green',
-        },
-        editor = {
-          transparent_background = false,
-        },
-        style = {
-          types = {},
-          keyword = {},
-          search = { 'reverse', 'bold' },
-          incsearch = { 'reverse', 'bold' },
-        },
-      })
-      vim.cmd([[colorscheme evergarden]])
+    opts = {
+      theme = {
+        variant = 'winter',
+        accent = 'green',
+      },
+      editor = {
+        transparent_background = false,
+      },
+      style = {
+        types = {},
+        keyword = {},
+        search = { 'reverse', 'bold' },
+        incsearch = { 'reverse', 'bold' },
+      },
+    },
+    config = function(_, opts)
+      require('evergarden').setup(opts)
+      vim.cmd.colorscheme('evergarden')
     end
   },
 }
