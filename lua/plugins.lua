@@ -3,8 +3,6 @@ local function has_words_before()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local icons = require("icons")
-
 return {
   {
     "folke/snacks.nvim",
@@ -35,6 +33,9 @@ return {
       },
       lazygit = {
         enabled = true,
+      },
+      notifier = {
+        enable = true,
       },
       indent = {
         enabled = true,
@@ -102,12 +103,94 @@ return {
     },
   },
   {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      lsp = {
+        signature = { enabled = false },
+        hover = { enabled = false },
+      },
+      cmdline = {
+        enabled = true,
+        view = "cmdline_popup",
+      },
+      routes = {
+        {
+          filter = {
+            event = "msg_show",
+            kind = "",
+            find = "written",
+          },
+          opts = { skip = true },
+        },
+      },
+      notify = {
+        enabled = false,
+      },
+      presets = {
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
+        inc_rename = false,
+        lsp_doc_border = false,
+      },
+    },
+  },
+  {
     'nvim-mini/mini.nvim',
     version = false,
     config = function()
       require('mini.icons').setup()
-      require('mini.statusline').setup()
+      -- MiniIcons.mock_nvim_web_devicons()
+      require('mini.statusline').setup({
+        use_icons = true,
+        content = {
+          active = function()
+            local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+            local git           = MiniStatusline.section_git({ trunc_width = 40 })
+            local diagnostics   = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+            -- local fileinfo      = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+
+            local lsp_client    = function()
+              local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
+              if #buf_clients == 0 then return "" end
+              local names = {}
+              for _, client in pairs(buf_clients) do
+                table.insert(names, client.name)
+              end
+              return " " .. table.concat(names, ", ")
+            end
+            local lsp_str       = lsp_client()
+
+            local macro         = function()
+              if package.loaded["noice"] and require("noice").api.status.mode.has() then
+                return require("noice").api.status.mode.get()
+              end
+              local recording_register = vim.fn.reg_recording()
+              if recording_register == "" then return "" end
+              return "⏺ @" .. recording_register
+            end
+            local macro_str     = macro()
+
+            return MiniStatusline.combine_groups({
+              { hl = mode_hl,                 strings = { mode } },
+              { hl = 'MiniStatuslineDevinfo', strings = { git } },
+              '%<',
+
+              { hl = "MiniStatuslineFilename", strings = { '%=' } },
+              { hl = 'MiniStatuslineFilename', strings = { diagnostics } },
+              '%=',
+
+              { hl = 'MiniStatuslineFileinfo', strings = { lsp_str } },
+              -- { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+              { hl = mode_hl,                  strings = { macro_str } },
+            })
+          end,
+        },
+      })
       require('mini.tabline').setup()
+      require('mini.pairs').setup()
+      require('mini.surround').setup()
     end
   },
   {
@@ -119,7 +202,6 @@ return {
       local TS = require("nvim-treesitter")
       TS.setup({})
 
-      -- 你想要的“auto_install”效果：进 buffer 就装对应 parser（已安装则 no-op）
       local group = vim.api.nvim_create_augroup("my_treesitter_main", { clear = true })
 
       vim.api.nvim_create_autocmd("FileType", {
@@ -128,24 +210,19 @@ return {
           local ft = ev.match
           local lang = vim.treesitter.language.get_lang(ft) or ft
 
-          -- 没有对应 parser 的 buffer（比如某些特殊插件 buffer）会失败；失败就直接跳过
           if not vim.treesitter.language.add(lang) then
             return
           end
 
-          -- 尝试安装（已安装会是 no-op）
           TS.install({ lang })
 
-          -- 启用高亮（main 分支需要你自己 start）
           pcall(vim.treesitter.start, ev.buf, lang)
 
-          -- 启用 folds（用 Neovim 内置 foldexpr）
           vim.api.nvim_buf_call(ev.buf, function()
             vim.opt_local.foldmethod = "expr"
             vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
           end)
 
-          -- 启用 indent（main 分支：通过 indentexpr；官方标注为 experimental）
           vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end,
       })
@@ -300,9 +377,6 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'Saghen/blink.cmp',
-      -- 'neovim/nvim-lspconfig',
-
-      -- optional dependencies:
 
       -- 'nvim-telescope/telescope.nvim', -- for 2 Lean-specific pickers
       -- 'andymass/vim-matchup',          -- for enhanced % motion behavior
@@ -324,12 +398,12 @@ return {
     event = "VeryLazy",
     opts = {
       signs = {
-        add = { text = icons.GitSign },
-        change = { text = icons.GitSign },
-        delete = { text = icons.GitSign },
-        topdelete = { text = icons.GitSign },
-        changedelete = { text = icons.GitSign },
-        untracked = { text = icons.GitSign },
+        add          = { text = '┃' },
+        change       = { text = '┃' },
+        delete       = { text = '_' },
+        topdelete    = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked    = { text = '┆' },
       },
       current_line_blame = true,
       on_attach = function(bufnr)
@@ -384,43 +458,60 @@ return {
       end,
     },
   },
-  {
-    "nvimdev/guard.nvim",
-    dependencies = {
-      "nvimdev/guard-collection",
-    },
-    event = "BufReadPost",
-    opts = {},
+  { -- Linting
+    'mfussenegger/nvim-lint',
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
-      local ft = require("guard.filetype")
-
-      if vim.fn.executable("hlint") == 1 then
-        ft("haskell"):lint("hlint")
-      end
-
-      if vim.fn.executable("ormolu") == 1 then
-        ft('haskell'):fmt("ormolu")
-      end
-
-      if vim.fn.executable("stylua") == 1 then
-        ft("lua"):fmt("stylua")
-      end
-
-      if vim.fn.executable("clang-tidy") == 1 then
-        ft("c"):lint("clang-tidy")
-        ft("cpp"):lint("clang-tidy")
-      end
-
-      if vim.fn.executable("alejandra") == 1 then
-        ft("nix"):fmt("alejandra")
-      end
-
-      vim.g.guard_config = {
-        fmt_on_save = false,
-        save_on_fmt = false,
-        lsp_as_default_formatter = true,
+      local lint = require 'lint'
+      lint.linters_by_ft = {
+        -- markdown = { 'markdownlint' },
+        swift = { 'swiftlint' },
+        python = { 'ruff' },
+        haskell = { 'hlint' }
       }
+
+      local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
+      vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
+        group = lint_augroup,
+        callback = function()
+          lint.try_lint()
+        end,
+      })
     end,
+  },
+  {
+    'stevearc/conform.nvim',
+    event = { 'BufWritePre' },
+    cmd = { 'ConformInfo' },
+    keys = {
+      {
+        '<leader>lf',
+        function()
+          require('conform').format { async = true, lsp_fallback = true }
+        end,
+        mode = '',
+        desc = 'Format buffer',
+      },
+    },
+    opts = {
+      notify_on_error = true,
+      format_on_save = false,
+      formatters_by_ft = {
+        swift = { 'swiftformat' },
+        typst = { 'typstyle' },
+
+        json = { 'biome' },
+        html = { 'biome' },
+        css = { 'biome' },
+        markdown = { 'biome' },
+
+        haskell = { 'ormolu' },
+        ocaml = { 'ocamlformat' },
+        python = { 'ruff' },
+        nix = { 'alejandra' },
+        elm = { 'elm_format' }
+      },
+    },
   },
   {
     'everviolet/nvim',
@@ -435,6 +526,12 @@ return {
         },
         editor = {
           transparent_background = false,
+        },
+        style = {
+          types = {},
+          keyword = {},
+          search = { 'reverse', 'bold' },
+          incsearch = { 'reverse', 'bold' },
         },
       })
       vim.cmd([[colorscheme evergarden]])

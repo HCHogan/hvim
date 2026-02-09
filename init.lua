@@ -59,7 +59,6 @@ vim.keymap.set("n", "]b", "<Cmd>bnext<CR>")
 vim.keymap.set("n", "<leader>c", function() require('snacks').bufdelete() end)
 vim.keymap.set("n", "<leader>/", "gcc", { remap = true, desc = "Toggle comment line" })
 vim.keymap.set("v", "<leader>/", "gc", { remap = true, desc = "Toggle comment" })
-vim.keymap.set("n", "<leader>lf", "<cmd>Guard fmt<CR>")
 
 vim.keymap.set("n", "<leader>q", "<Cmd>q<CR>")
 vim.keymap.set("n", "<leader>Q", "<Cmd>qa!<CR>")
