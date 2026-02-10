@@ -242,7 +242,7 @@ return {
   },
   {
     "saghen/blink.cmp",
-    event = "BufReadPost",
+    event = { "InsertEnter", "CmdlineEnter" },
     version = "*",
     opts = {
       keymap = {
