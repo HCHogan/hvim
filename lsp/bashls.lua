@@ -14,5 +14,5 @@ return {
   },
   filetypes = { 'bash', 'sh' },
   single_file_support = true,
-  root_dir = { '.git' }
+  root_markers = { '.git' }
 }
