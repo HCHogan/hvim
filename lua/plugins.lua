@@ -86,6 +86,10 @@ return {
         end,
         desc = "Grep files",
       },
+      { "<leader>fi", function() Snacks.picker.icons() end,       desc = "Icons" },
+      { "<leader>fk", function() Snacks.picker.keymaps() end,     desc = "Keymaps" },
+      { "<leader>fu", function() Snacks.picker.undo() end,        desc = "Undo History" },
+      { "<leader>fs", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
       {
         "<leader>g",
         function()
@@ -99,6 +103,13 @@ return {
           require("snacks").explorer()
         end,
         desc = "Explorer",
+      },
+      {
+        "<leader>lD",
+        function()
+          require('snacks').picker.diagnostics()
+        end,
+        desc = "Diagnostics"
       },
     },
   },

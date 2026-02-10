@@ -114,18 +114,6 @@ vim.keymap.set("n", "<leader>ui", function()
   end
 end)
 
--- vim.cmd([[inoremap ( ()<Left>]])
--- vim.cmd([[inoremap () ()]])
---
--- vim.cmd([[inoremap ( ()<Left>]])
--- vim.cmd([[inoremap () ()]])
---
--- vim.cmd("inoremap { {}<Left>")
--- vim.cmd("inoremap {} {}")
---
--- vim.cmd("inoremap [ []<Left>")
--- vim.cmd("inoremap [] []")
-
 vim.cmd([[set cmdheight=0]])
 
 -- Highlight when yanking (copying) text
@@ -143,6 +131,18 @@ vim.api.nvim_create_autocmd("VimLeave", {
   callback = function()
     vim.o.guicursor = ""
     vim.fn.chansend(vim.v.stderr, "\x1b[ q]")
+  end,
+})
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  desc = "Exit: Kill all background terminals automatically",
+  group = vim.api.nvim_create_augroup("kill_terminals_on_exit", { clear = true }),
+  callback = function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buftype == "terminal" then
+        vim.api.nvim_buf_delete(buf, { force = true })
+      end
+    end
   end,
 })
 
