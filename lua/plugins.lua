@@ -531,7 +531,7 @@ return {
     },
   },
   {
-    'everviolet/nvim',
+    'HCHogan/evergarden',
     name = 'evergarden',
     lazy = false,
     priority = 1000,
