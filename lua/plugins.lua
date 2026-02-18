@@ -55,10 +55,13 @@ return {
         enabled = true,
       },
       notifier = {
-        enable = true,
+        enabled = true,
       },
       indent = {
         enabled = true,
+        animate = {
+          enabled = false;
+        };
       },
       terminal = {
         enabled = true,
