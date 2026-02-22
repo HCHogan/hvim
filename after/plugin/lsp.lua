@@ -46,10 +46,10 @@ capabilities.textDocument.completion = capabilities.textDocument.completion or {
 capabilities.textDocument.completion.completionItem = capabilities.textDocument.completion.completionItem or {}
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local ok_blink, blink = pcall(require, "blink.cmp")
-if ok_blink and blink.get_lsp_capabilities then
-  capabilities = blink.get_lsp_capabilities(capabilities)
-end
+-- local ok_blink, blink = pcall(require, "blink.cmp")
+-- if ok_blink and blink.get_lsp_capabilities then
+--   capabilities = blink.get_lsp_capabilities(capabilities)
+-- end
 
 vim.lsp.config("*", {
   capabilities = capabilities,
