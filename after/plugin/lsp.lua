@@ -11,14 +11,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("<leader>lr", vim.lsp.buf.rename, "rename")
     map("<leader>la", function()
       vim.lsp.buf.code_action()
-    end, "format")
+    end, "code action")
     -- map('<leader>lf', function() vim.lsp.buf.format({ async = true }) end, 'format')
 
     map("gd", vim.lsp.buf.definition, "goto definition")
-    map("gr", vim.lsp.buf.references, "goto definition")
-    map("gD", vim.lsp.buf.declaration, "goto definition")
+    map("gr", vim.lsp.buf.references, "goto references")
+    map("gD", vim.lsp.buf.declaration, "goto declaration")
     map("gi", vim.lsp.buf.implementation, "goto implementation")
-    map("gh", vim.lsp.buf.typehierarchy, "goto implementation")
+    map("gh", vim.lsp.buf.typehierarchy, "goto type hierarchy")
     map("K", function() vim.lsp.buf.hover({ border = 'rounded' }) end, "Hover")
 
     -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
@@ -41,6 +41,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument = capabilities.textDocument or {}
+capabilities.textDocument.completion = capabilities.textDocument.completion or {}
+capabilities.textDocument.completion.completionItem = capabilities.textDocument.completion.completionItem or {}
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+local ok_blink, blink = pcall(require, "blink.cmp")
+if ok_blink and blink.get_lsp_capabilities then
+  capabilities = blink.get_lsp_capabilities(capabilities)
+end
 
 vim.lsp.config("*", {
   capabilities = capabilities,
@@ -50,7 +59,13 @@ local lsps = { "clangd", "basedpyright", "luals", "nil", "neocmake", "bashls", "
   "yamlls", "cssls" }
 
 for _, lsp in ipairs(lsps) do
-  if vim.fn.executable(vim.lsp.config[lsp].cmd[1]) == 1 then
-    vim.lsp.enable(lsp)
+  local config = vim.lsp.config[lsp]
+  if config then
+    local cmd = config.cmd
+    if type(cmd) == "function" then
+      vim.lsp.enable(lsp)
+    elseif type(cmd) == "table" and cmd[1] and vim.fn.executable(cmd[1]) == 1 then
+      vim.lsp.enable(lsp)
+    end
   end
 end

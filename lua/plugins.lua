@@ -491,7 +491,7 @@ return {
 
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'Saghen/blink.cmp',
+      'saghen/blink.cmp',
     },
 
     opts = {
