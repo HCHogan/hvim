@@ -377,6 +377,8 @@ return {
           end,
           "fallback",
         },
+        ["<M-l>"] = { "snippet_forward", "fallback" },
+        ["<M-h>"] = { "snippet_backward", "fallback" },
       },
       completion = {
         list = { selection = { preselect = false, auto_insert = true } },
