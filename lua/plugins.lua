@@ -60,8 +60,8 @@ return {
       indent = {
         enabled = true,
         animate = {
-          enabled = false;
-        };
+          enabled = false,
+        },
       },
       terminal = {
         enabled = true,
@@ -425,8 +425,8 @@ return {
   },
   {
     'mrcjkb/rustaceanvim',
-    -- version = '^5', -- Recommended
-    lazy = false, -- This plugin is already lazy
+    version = '^8', -- Recommended
+    lazy = false,   -- This plugin is already lazy
     config = function()
       local cfg = {
         -- Plugin configuration
@@ -448,28 +448,17 @@ return {
                 extraArgs = { "--no-deps" },
                 allFeatures = true,
               },
-              -- inlayHints = {
-              -- reborrowHints = {
-              --   enable = "mutable",
-              -- },
-              -- lifetimeElisionHints = {
-              --   enable = "skip_trivial",
-              -- },
-              -- closureReturnTypeHints = {
-              --   enable = "with_block",
-              -- },
-              -- implicitDrops = {
-              --   enable = "always",
-              -- },
-              -- discriminantHints = {
-              --   enable = "always",
-              -- },
-              -- expressionAdjustmentHints = {
-              --   enable = "always",
-              --   hideOutsideUnsafe = false,
-              --   mode = "prefix",
-              -- },
-              -- },
+              inlayHints = {
+                expressionAdjustmentHints = {
+                  enable = "always",
+                },
+                implicitDrops = {
+                  enable = "always",
+                },
+                implicitSizedBoundHints = {
+                  enable = true,
+                },
+              },
             },
           },
         },
