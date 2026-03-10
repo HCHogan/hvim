@@ -437,6 +437,20 @@ return {
           default_settings = {
             -- rust-analyzer language server configuration
             ['rust-analyzer'] = {
+              files = {
+                watcher = "client",
+                exclude = {
+                  ".git",
+                  "target",
+                  "node_modules",
+                  ".direnv",
+                  ".venv",
+                  "venv",
+                  "dist",
+                  "build",
+                  ".flatpak-builder",
+                },
+              },
               cargo = {
                 extraEnv = { CARGO_PROFILE_RUST_ANALYZER_INHERITS = "dev" },
                 extraArgs = { "--profile", "rust-analyzer" },
