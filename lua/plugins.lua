@@ -183,6 +183,33 @@ return {
     },
   },
   {
+    'mrjones2014/smart-splits.nvim',
+    event = "VeryLazy",
+    opts = {
+      ignored_filetypes = { 'SnacksExplorer' },
+    },
+    config = function(_, opts)
+      vim.keymap.set('n', '<C-up>', function() require("smart-splits").resize_up() end,
+        { desc = 'Resize split up' })
+      vim.keymap.set('n', '<C-down>', function() require("smart-splits").resize_down() end,
+        { desc = 'Resize split down' })
+      vim.keymap.set('n', '<C-left>', function() require("smart-splits").resize_left() end,
+        { desc = 'Resize split left' })
+      vim.keymap.set('n', '<C-right>', function() require("smart-splits").resize_right() end,
+        { desc = 'Resize split right' })
+
+      vim.keymap.set('t', '<C-up>', function() require("smart-splits").resize_up() end,
+        { desc = 'Resize split up' })
+      vim.keymap.set('t', '<C-down>', function() require("smart-splits").resize_down() end,
+        { desc = 'Resize split down' })
+      vim.keymap.set('t', '<C-left>', function() require("smart-splits").resize_left() end,
+        { desc = 'Resize split left' })
+      vim.keymap.set('t', '<C-right>', function() require("smart-splits").resize_right() end,
+        { desc = 'Resize split right' })
+      require('smart-splits').setup(opts)
+    end
+  },
+  {
     "folke/persistence.nvim",
     event = "BufReadPre",
     opts = {}
@@ -359,7 +386,6 @@ return {
         ["<CR>"] = { "accept", "fallback" },
         ["<Tab>"] = {
           "select_next",
-          "snippet_forward",
           function(cmp)
             if has_words_before() or vim.api.nvim_get_mode().mode == "c" then
               return cmp.show()
@@ -369,7 +395,6 @@ return {
         },
         ["<S-Tab>"] = {
           "select_prev",
-          "snippet_backward",
           function(cmp)
             if vim.api.nvim_get_mode().mode == "c" then
               return cmp.show()
