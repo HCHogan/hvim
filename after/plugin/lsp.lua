@@ -56,7 +56,7 @@ vim.lsp.config("*", {
 })
 
 local lsps = { "clangd", "basedpyright", "luals", "nil", "neocmake", "bashls", "elmls", "html", "jsonls", "taplo",
-  "yamlls", "cssls" }
+  "yamlls", "cssls", "tinymist" }
 
 for _, lsp in ipairs(lsps) do
   local config = vim.lsp.config[lsp]
