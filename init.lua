@@ -138,6 +138,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.api.nvim_create_autocmd("VimLeavePre", {
+  callback = function()
+    vim.api.nvim_chan_send(vim.v.stderr, "\x1b[6 q")
+  end,
+})
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
   desc = "Exit: Kill all background terminals automatically",
   group = vim.api.nvim_create_augroup("kill_terminals_on_exit", { clear = true }),
   callback = function()
