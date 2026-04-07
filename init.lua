@@ -137,15 +137,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- fix cursor in windows terminal
-vim.api.nvim_create_autocmd("VimLeave", {
-  pattern = "*",
-  callback = function()
-    vim.o.guicursor = ""
-    vim.fn.chansend(vim.v.stderr, "\x1b[ q]")
-  end,
-})
-
 vim.api.nvim_create_autocmd("VimLeavePre", {
   desc = "Exit: Kill all background terminals automatically",
   group = vim.api.nvim_create_augroup("kill_terminals_on_exit", { clear = true }),
